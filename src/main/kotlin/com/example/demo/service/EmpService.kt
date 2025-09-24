@@ -18,13 +18,6 @@ class EmpService(private val repo: EmployeeRepository) {
         return repo.findAll().filter { it.name.contains(keyword) || it.position.contains(keyword) }
     }
 
-//    fun <T: Comparable<T>> sortEmployees(
-//        keySelector: (Employee) -> T,
-//        default: Boolean = false
-//    ): List<Employee>{
-//        return if (default) repo.findAll().sortedBy(keySelector) else repo.findAll().sortedBy(keySelector)
-//    }
-
     fun <T: Comparable<T>> sortEmployees(
         keySelector: (Employee) -> T
     ): List<Employee>{
