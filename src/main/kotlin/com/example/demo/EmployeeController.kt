@@ -2,6 +2,7 @@ package com.example.demo
 
 import com.example.demo.service.EmpService
 import com.example.demo.entity.Employee
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -17,31 +18,32 @@ class EmployeeController(private val service: EmpService) {
     }
 
     @GetMapping()
-    fun getAll(): List<Employee>{
-        return service.getAllEmployees()
+    fun getAll(): ResponseEntity<List<Employee>>{
+        val emps : List<Employee> = service.getAllEmployees()
+        return ResponseEntity.ok(emps)
     }
 
     @GetMapping("/filtered")
-    fun filterEmployees(): List<Employee> {
-        return service.filteredEmps
+    fun filterEmployees(): ResponseEntity<List<Employee>>{
+        return ResponseEntity.ok(service.filteredEmps)
     }
 
     @GetMapping("/search")
-    fun searchEmployee(@RequestParam(required=false) name: String?): List<Employee> {
+    fun searchEmployee(@RequestParam(required=false) name: String?): ResponseEntity<List<Employee>>{
         var emp: List<Employee>? = null
         if(name != null){
             emp = service.searchEmployee(name)
         }else{
             emp = service.searchEmployee(keyword="Bob")
         }
-        return emp
+        return ResponseEntity.ok(emp)
     }
 
     @GetMapping("/sort")
-    fun sortedBy(): List<Employee> {
+    fun sortedBy(): ResponseEntity<List<Employee>>{
             var emp: List<Employee>? = null
             emp = service.sortedBySalary
-            return emp
+            return ResponseEntity.ok(emp)
         }
 
 
