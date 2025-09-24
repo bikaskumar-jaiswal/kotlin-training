@@ -12,14 +12,11 @@ class EmpService(private val repo: EmployeeRepository) {
     fun filterEmployees(emp: List<Employee>, action: (Employee) -> Boolean): List<Employee> {
         return emp.filter{action(it)}
     }
-
     val filteredEmps = filterEmployees(repo.findAll()){it.salary > 6000}
-
 
     fun searchEmployee(keyword: String): List<Employee>{
         return repo.findAll().filter { it.name.contains(keyword) || it.position.contains(keyword) }
     }
-
 
 //    fun <T: Comparable<T>> sortEmployees(
 //        keySelector: (Employee) -> T,
@@ -33,7 +30,6 @@ class EmpService(private val repo: EmployeeRepository) {
     ): List<Employee>{
         return  repo.findAll().sortedBy(keySelector)
     }
-
     val sortedBySalary = sortEmployees({it.salary})
 
 
